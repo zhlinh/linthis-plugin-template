@@ -1,0 +1,124 @@
+# ============================================================================
+# Linthis Plugin Manifest: linthis-plugin-template
+# ============================================================================
+#
+# This file defines the plugin metadata and configuration file mappings.
+# Documentation: https://github.com/zhlinh/linthis
+#
+# Structure:
+#   [plugin]     - Plugin metadata (name, version, etc.)
+#   [configs.*]  - Configuration file mappings by language
+
+[plugin]
+# Plugin name (required)
+name = "linthis-plugin-template"
+
+# Plugin version using semver (required)
+version = "0.1.0"
+
+# Short description
+description = "linthis-plugin-template configuration plugin for linthis"
+
+# Minimum linthis version required
+linthis_version = ">=0.2.0"
+
+# Supported languages (informational)
+languages = ["rust", "python", "typescript", "go", "java", "cpp", "swift", "objectivec", "sql", "csharp", "lua", "css", "kotlin", "dockerfile", "scala", "dart"]
+
+# License identifier (SPDX)
+license = "MIT"
+
+# Plugin authors
+[[plugin.authors]]
+name = "Your Name"
+email = "your.email@example.com"
+
+# ============================================================================
+# Configuration File Mappings
+# ============================================================================
+#
+# Format: [configs.<language>]
+#         <tool> = "<path/to/config/file>"
+#
+# The path is relative to this manifest file.
+# When users install this plugin, linthis will use these configs.
+
+[configs.rust]
+# Clippy linter configuration
+clippy = "rust/clippy.toml"
+# Rustfmt formatter configuration
+rustfmt = "rust/rustfmt.toml"
+
+[configs.python]
+# Ruff linter and formatter configuration
+ruff = "python/ruff.toml"
+
+[configs.typescript]
+# ESLint linter configuration (also works for JavaScript)
+eslint = "typescript/.eslintrc.json"
+# Prettier formatter configuration
+prettier = "typescript/.prettierrc"
+
+[configs.go]
+# golangci-lint configuration
+golangci-lint = "go/.golangci.yml"
+
+[configs.java]
+# Checkstyle configuration
+checkstyle = "java/checkstyle.xml"
+
+[configs.cpp]
+# Clang-Format configuration
+clang-format = "cpp/.clang-format"
+# CPPLint configuration
+cpplint = "cpp/CPPLINT.cfg"
+
+[configs.swift]
+# SwiftLint linter configuration
+swiftlint = "swift/.swiftlint.yml"
+# swift-format formatter configuration
+swift-format = "swift/.swift-format"
+
+[configs.objectivec]
+# Clang-Format configuration
+clang-format = "objectivec/.clang-format"
+
+[configs.sql]
+# SQLFluff linter and formatter configuration
+sqlfluff = "sql/.sqlfluff"
+
+[configs.csharp]
+# dotnet-format configuration via .editorconfig
+editorconfig = "csharp/.editorconfig"
+
+[configs.lua]
+# Luacheck linter configuration
+luacheck = "lua/.luacheckrc"
+# StyLua formatter configuration
+stylua = "lua/stylua.toml"
+
+[configs.css]
+# Stylelint linter configuration
+stylelint = "css/.stylelintrc.json"
+# Prettier formatter configuration
+prettier = "css/.prettierrc"
+
+[configs.kotlin]
+# EditorConfig for Kotlin
+editorconfig = "kotlin/.editorconfig"
+# Detekt linter configuration
+detekt = "kotlin/detekt.yml"
+
+[configs.dockerfile]
+# Hadolint linter configuration
+hadolint = "dockerfile/.hadolint.yaml"
+
+[configs.scala]
+# Scalafmt formatter configuration
+scalafmt = "scala/.scalafmt.conf"
+# Scalafix linter configuration
+scalafix = "scala/.scalafix.conf"
+
+[configs.dart]
+# Dart analyzer configuration
+analyzer = "dart/analysis_options.yaml"

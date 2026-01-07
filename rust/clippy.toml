@@ -1,0 +1,54 @@
+# Clippy Configuration for linthis-plugin-template Plugin
+# Documentation: https://doc.rust-lang.org/clippy/configuration.html
+#
+# This file configures the Clippy linter for Rust projects.
+# Place this file in your project root or configure via Cargo.toml.
+
+# ============================================================================
+# COMPLEXITY SETTINGS
+# ============================================================================
+
+# Maximum cognitive complexity allowed for functions (default: 25)
+# Lower values encourage simpler, more maintainable functions
+cognitive-complexity-threshold = 20
+
+# Maximum number of lines in a function body (default: 100)
+too-many-lines-threshold = 80
+
+# Maximum number of arguments a function can have (default: 7)
+too-many-arguments-threshold = 6
+
+# ============================================================================
+# NAMING CONVENTIONS
+# ============================================================================
+
+# Minimum length for variable/function names to avoid abbreviations
+min-ident-chars-threshold = 2
+
+# ============================================================================
+# DOCUMENTATION
+# ============================================================================
+
+# Require documentation for public items
+# Enable this in library crates for better API documentation
+# missing-docs-in-private-items = true
+
+# ============================================================================
+# SAFETY & CORRECTNESS
+# ============================================================================
+
+# Avoid breaking changes in public API
+avoid-breaking-exported-api = true
+
+# Maximum allowed size for stack-allocated arrays (default: 512000 bytes)
+array-size-threshold = 512000
+
+# ============================================================================
+# STYLE PREFERENCES
+# ============================================================================
+
+# Prefer using explicit return types
+# allow-private-module-inception = false
+
+# Enforce consistent brace style
+# brace-style = "SameLineWhere"

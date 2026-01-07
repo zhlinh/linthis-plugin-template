@@ -1,0 +1,151 @@
+# golangci-lint Configuration for linthis-plugin-template Plugin
+# Documentation: https://golangci-lint.run/usage/configuration/
+#
+# Run with: golangci-lint run
+
+# ============================================================================
+# RUNTIME OPTIONS
+# ============================================================================
+
+run:
+  # Timeout for analysis (e.g., 5m, 10m)
+  timeout: 5m
+
+  # Include test files in analysis
+  tests: true
+
+  # Skip directories
+  skip-dirs:
+    - vendor
+    - third_party
+    - testdata
+
+  # Skip files by regex
+  skip-files:
+    - ".*_generated\\.go$"
+    - ".*\\.pb\\.go$"
+
+# ============================================================================
+# OUTPUT CONFIGURATION
+# ============================================================================
+
+output:
+  # Format: colored-line-number, line-number, json, tab, checkstyle
+  formats:
+    - format: colored-line-number
+
+  # Print lines of code with issue
+  print-issued-lines: true
+
+  # Print linter name
+  print-linter-name: true
+
+# ============================================================================
+# LINTERS CONFIGURATION
+# ============================================================================
+
+linters:
+  # Disable all linters and then enable specific ones
+  disable-all: true
+
+  enable:
+    # Default linters
+    - errcheck       # Check for unchecked errors
+    - gosimple       # Suggest code simplifications
+    - govet          # Examines Go source code
+    - ineffassign    # Detect ineffectual assignments
+    - staticcheck    # Static analysis checks
+    - unused         # Find unused code
+
+    # Additional recommended linters
+    - bodyclose      # Check HTTP response body is closed
+    - dogsled        # Check for too many blank identifiers
+    - dupl           # Find duplicate code
+    - exhaustive     # Check exhaustiveness of enum switch statements
+    - funlen         # Limit function length
+    - gocognit       # Cognitive complexity checker
+    - goconst        # Find repeated strings that could be constants
+    - gocritic       # Opinionated linter
+    - gocyclo        # Check cyclomatic complexity
+    - gofmt          # Check formatting
+    - goimports      # Check import formatting
+    - goprintffuncname  # Check printf-like function names
+    - gosec          # Security checker
+    - misspell       # Find misspelled words
+    - nakedret       # Find naked returns
+    - noctx          # Find HTTP requests without context
+    - nolintlint     # Check nolint directives
+    - prealloc       # Find slice declarations that could be preallocated
+    - revive         # Replacement for golint
+    - stylecheck     # Style checker
+    - unconvert      # Remove unnecessary type conversions
+    - unparam        # Find unused function parameters
+    - whitespace     # Check for unnecessary whitespace
+
+# ============================================================================
+# LINTER-SPECIFIC SETTINGS
+# ============================================================================
+
+linters-settings:
+  errcheck:
+    # Check for type assertions: a].(type)
+    check-type-assertions: true
+    # Check for blank identifiers: _ = f()
+    check-blank: true
+
+  funlen:
+    # Maximum function length (lines)
+    lines: 80
+    # Maximum statements in function
+    statements: 50
+
+  gocognit:
+    # Minimal cognitive complexity to report
+    min-complexity: 20
+
+  gocyclo:
+    # Minimal cyclomatic complexity to report
+    min-complexity: 15
+
+  govet:
+    # Enable all analyzers
+    enable-all: true
+
+  misspell:
+    locale: US
+
+  nakedret:
+    # Maximum function length for naked returns
+    max-func-lines: 30
+
+  revive:
+    rules:
+      - name: exported
+        disabled: false
+      - name: var-naming
+        disabled: false
+
+  stylecheck:
+    # https://staticcheck.io/docs/options#checks
+    checks: ["all", "-ST1000", "-ST1003"]
+
+# ============================================================================
+# ISSUES CONFIGURATION
+# ============================================================================
+
+issues:
+  # Show all issues (don't limit)
+  max-issues-per-linter: 0
+  max-same-issues: 0
+
+  # Don't skip any checks
+  exclude-use-default: false
+
+  # Exclude some patterns
+  exclude-rules:
+    # Exclude some linters from running on tests
+    - path: _test\.go
+      linters:
+        - funlen
+        - dupl
+        - gocyclo

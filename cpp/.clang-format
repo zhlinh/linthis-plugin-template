@@ -1,0 +1,189 @@
+# Clang-Format Configuration for linthis-plugin-template Plugin
+# Documentation: https://clang.llvm.org/docs/ClangFormatStyleOptions.html
+#
+# Run with: clang-format -i file.cpp
+# Or use editor integration (VSCode, CLion, etc.)
+
+---
+# ============================================================================
+# BASE STYLE
+# ============================================================================
+
+# Start from Google style and customize
+BasedOnStyle: Google
+
+# Use C++17 standard for parsing
+Standard: c++17
+
+# ============================================================================
+# INDENTATION
+# ============================================================================
+
+# Use spaces for indentation
+UseTab: Never
+
+# Number of spaces per indentation level
+IndentWidth: 4
+
+# Continuation indent (for wrapped lines)
+ContinuationIndentWidth: 4
+
+# Indent case labels in switch
+IndentCaseLabels: true
+
+# Indent goto labels
+IndentGotoLabels: false
+
+# Indent preprocessor directives
+IndentPPDirectives: AfterHash
+
+# Access modifiers (public/private) indentation
+AccessModifierOffset: -4
+
+# ============================================================================
+# LINE WRAPPING
+# ============================================================================
+
+# Maximum line width
+ColumnLimit: 120
+
+# How to wrap function arguments
+AlignAfterOpenBracket: Align
+
+# Pack function arguments
+BinPackArguments: false
+
+# Pack function parameters
+BinPackParameters: false
+
+# Always break after return type for function definitions
+AlwaysBreakAfterReturnType: None
+
+# Break before braces
+BreakBeforeBraces: Attach
+
+# Break after operators
+BreakBeforeBinaryOperators: None
+
+# Break before ternary operators
+BreakBeforeTernaryOperators: true
+
+# ============================================================================
+# ALIGNMENT
+# ============================================================================
+
+# Align consecutive assignments
+AlignConsecutiveAssignments: false
+
+# Align consecutive declarations
+AlignConsecutiveDeclarations: false
+
+# Align consecutive macros
+AlignConsecutiveMacros: true
+
+# Align escaped newlines (backslash in macros)
+AlignEscapedNewlines: Left
+
+# Align trailing comments
+AlignTrailingComments: true
+
+# ============================================================================
+# SPACING
+# ============================================================================
+
+# Space after C-style cast
+SpaceAfterCStyleCast: false
+
+# Space after logical not
+SpaceAfterLogicalNot: false
+
+# Space before assignment operators
+SpaceBeforeAssignmentOperators: true
+
+# Space before parentheses
+SpaceBeforeParens: ControlStatements
+
+# Space in empty parentheses
+SpaceInEmptyParentheses: false
+
+# Spaces in parentheses
+SpacesInParentheses: false
+
+# Spaces in square brackets
+SpacesInSquareBrackets: false
+
+# Spaces in container literals
+SpacesInContainerLiterals: false
+
+# Spaces in angles (templates)
+SpacesInAngles: false
+
+# ============================================================================
+# BRACES & BLOCKS
+# ============================================================================
+
+# Allow short blocks on a single line
+AllowShortBlocksOnASingleLine: Empty
+
+# Allow short case labels on a single line
+AllowShortCaseLabelsOnASingleLine: false
+
+# Allow short functions on a single line
+AllowShortFunctionsOnASingleLine: Empty
+
+# Allow short if statements on a single line
+AllowShortIfStatementsOnASingleLine: Never
+
+# Allow short loops on a single line
+AllowShortLoopsOnASingleLine: false
+
+# Allow short lambdas on a single line
+AllowShortLambdasOnASingleLine: All
+
+# ============================================================================
+# INCLUDES
+# ============================================================================
+
+# Sort includes
+SortIncludes: CaseSensitive
+
+# Include categories (priority order)
+IncludeCategories:
+  # Main header (same name as .cpp file)
+  - Regex: '^"[^/]*\.h"'
+    Priority: 1
+  # Project headers
+  - Regex: '^"'
+    Priority: 2
+  # System headers
+  - Regex: '^<'
+    Priority: 3
+
+# ============================================================================
+# COMMENTS
+# ============================================================================
+
+# Reflow comments to fit within column limit
+ReflowComments: true
+
+# Space before trailing comments
+SpacesBeforeTrailingComments: 2
+
+# ============================================================================
+# MISCELLANEOUS
+# ============================================================================
+
+# Pointer alignment (Left = int* p, Right = int *p)
+PointerAlignment: Left
+
+# Reference alignment (follows PointerAlignment)
+ReferenceAlignment: Pointer
+
+# Don't sort using declarations
+SortUsingDeclarations: true
+
+# Fix namespace end comments
+FixNamespaceComments: true
+
+# Maximum empty lines to keep
+MaxEmptyLinesToKeep: 1

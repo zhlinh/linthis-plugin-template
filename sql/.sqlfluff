@@ -1,0 +1,36 @@
+# SQLFluff Configuration for linthis-plugin-template Plugin
+# Documentation: https://docs.sqlfluff.com/
+
+[sqlfluff]
+# SQL dialect
+dialect = sqlite
+
+# Template language (jinja, dbt, etc.)
+templater = raw
+
+# Exclude files
+exclude_rules = L034,L036
+
+# Maximum line length
+max_line_length = 100
+
+[sqlfluff:rules]
+# Tab space size
+tab_space_size = 2
+
+# Indentation
+indent_unit = space
+
+# Comma style (leading or trailing)
+comma_style = trailing
+
+# Capitalisation policy (upper, lower, capitalise)
+capitalisation_policy = upper
+
+[sqlfluff:rules:L010]
+# Keywords should be upper case
+capitalisation_policy = upper
+
+[sqlfluff:rules:L014]
+# Unquoted identifiers should be lower case
+capitalisation_policy = lower

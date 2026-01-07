@@ -1,0 +1,73 @@
+{
+  "$schema": "https://json.schemastore.org/eslintrc",
+  "_comment": "ESLint Configuration for linthis-plugin-template Plugin",
+  "_docs": "https://eslint.org/docs/user-guide/configuring/",
+
+  "root": true,
+
+  "env": {
+    "browser": true,
+    "es2022": true,
+    "node": true
+  },
+
+  "extends": [
+    "eslint:recommended"
+  ],
+
+  "parserOptions": {
+    "ecmaVersion": "latest",
+    "sourceType": "module"
+  },
+
+  "rules": {
+    "_comment_style": "=== Code Style ===",
+    "semi": ["error", "always"],
+    "quotes": ["error", "single", { "avoidEscape": true }],
+    "indent": ["error", 2, { "SwitchCase": 1 }],
+    "comma-dangle": ["error", "always-multiline"],
+    "max-len": ["warn", { "code": 100, "ignoreUrls": true, "ignoreStrings": true }],
+
+    "_comment_quality": "=== Code Quality ===",
+    "no-unused-vars": ["warn", { "argsIgnorePattern": "^_" }],
+    "no-console": ["warn", { "allow": ["warn", "error"] }],
+    "eqeqeq": ["error", "always"],
+    "curly": ["error", "all"],
+    "no-var": "error",
+    "prefer-const": "error",
+    "prefer-arrow-callback": "error",
+
+    "_comment_safety": "=== Safety ===",
+    "no-eval": "error",
+    "no-implied-eval": "error",
+    "no-new-func": "error",
+    "no-return-await": "error"
+  },
+
+  "overrides": [
+    {
+      "_comment": "TypeScript files",
+      "files": ["*.ts", "*.tsx"],
+      "parser": "@typescript-eslint/parser",
+      "plugins": ["@typescript-eslint"],
+      "extends": [
+        "plugin:@typescript-eslint/recommended"
+      ],
+      "rules": {
+        "@typescript-eslint/no-unused-vars": ["warn", { "argsIgnorePattern": "^_" }],
+        "@typescript-eslint/explicit-function-return-type": "off",
+        "@typescript-eslint/no-explicit-any": "warn"
+      }
+    },
+    {
+      "_comment": "Test files",
+      "files": ["*.test.ts", "*.test.js", "*.spec.ts", "*.spec.js"],
+      "env": {
+        "jest": true
+      },
+      "rules": {
+        "no-console": "off"
+      }
+    }
+  ]
+}

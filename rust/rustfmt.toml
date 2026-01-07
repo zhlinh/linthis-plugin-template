@@ -1,0 +1,87 @@
+# Rustfmt Configuration for linthis-plugin-template Plugin
+# Documentation: https://rust-lang.github.io/rustfmt/
+#
+# This file configures the Rust code formatter.
+# Run with: cargo fmt
+
+# ============================================================================
+# BASIC SETTINGS
+# ============================================================================
+
+# Rust edition (affects parsing and formatting rules)
+edition = "2021"
+
+# Maximum line width before wrapping
+max_width = 100
+
+# Number of spaces per indentation level
+tab_spaces = 4
+
+# Use spaces instead of tabs
+hard_tabs = false
+
+# ============================================================================
+# IMPORTS
+# ============================================================================
+
+# How to group imports: Preserve, Crate, Module, Item, One
+imports_granularity = "Crate"
+
+# Reorder import statements alphabetically
+reorder_imports = true
+
+# Group imports: std, external crates, then local modules
+group_imports = "StdExternalCrate"
+
+# ============================================================================
+# FORMATTING STYLE
+# ============================================================================
+
+# Use field init shorthand: { x: x } -> { x }
+use_field_init_shorthand = true
+
+# Use try shorthand: try!(expr) -> expr?
+use_try_shorthand = true
+
+# Format string literals with line breaks
+format_strings = false
+
+# Normalize documentation comments (/// vs //!)
+normalize_doc_attributes = false
+
+# ============================================================================
+# FUNCTION SIGNATURES
+# ============================================================================
+
+# Where to put function arguments: Compressed, Tall, Vertical
+fn_args_layout = "Tall"
+
+# Where to put function params on trait/impl blocks
+fn_params_layout = "Tall"
+
+# ============================================================================
+# COMMENTS
+# ============================================================================
+
+# Wrap comments at max_width
+wrap_comments = false
+
+# Format code in doc comments
+format_code_in_doc_comments = true
+
+# Normalize comments (add/remove spaces)
+normalize_comments = false
+
+# ============================================================================
+# MISCELLANEOUS
+# ============================================================================
+
+# Format macro bodies
+format_macro_matchers = false
+format_macro_bodies = true
+
+# Reorder module declarations
+reorder_modules = true
+
+# Use verbose output during formatting
+# verbose = false

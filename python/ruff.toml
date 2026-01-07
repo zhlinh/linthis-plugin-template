@@ -1,0 +1,102 @@
+# Ruff Configuration for linthis-plugin-template Plugin
+# Documentation: https://docs.astral.sh/ruff/configuration/
+#
+# Ruff is an extremely fast Python linter and formatter, written in Rust.
+# It can replace Flake8, isort, and Black in most projects.
+
+# ============================================================================
+# BASIC SETTINGS
+# ============================================================================
+
+# Maximum line length (matches Black default)
+line-length = 88
+
+# Minimum Python version to target
+target-version = "py38"
+
+# File patterns to include/exclude
+extend-exclude = [
+    ".git",
+    ".venv",
+    "venv",
+    "__pycache__",
+    "*.egg-info",
+    "build",
+    "dist",
+]
+
+# ============================================================================
+# LINT RULES
+# ============================================================================
+
+[lint]
+# Select which rule sets to enable
+# See: https://docs.astral.sh/ruff/rules/
+select = [
+    "E",      # pycodestyle errors
+    "W",      # pycodestyle warnings
+    "F",      # Pyflakes
+    "I",      # isort
+    "B",      # flake8-bugbear
+    "C4",     # flake8-comprehensions
+    "UP",     # pyupgrade
+    "SIM",    # flake8-simplify
+    "TCH",    # flake8-type-checking
+    "RUF",    # Ruff-specific rules
+]
+
+# Rules to ignore
+ignore = [
+    "E501",   # Line too long (handled by formatter)
+    "B008",   # Do not perform function calls in argument defaults
+    "C901",   # Too complex (use cognitive-complexity instead)
+]
+
+# Allow autofix for all enabled rules
+fixable = ["ALL"]
+unfixable = []
+
+# Allow unused variables when underscore-prefixed
+dummy-variable-rgx = "^(_+|(_+[a-zA-Z0-9_]*[a-zA-Z0-9]+?))$"
+
+# ============================================================================
+# PER-FILE IGNORES
+# ============================================================================
+
+[lint.per-file-ignores]
+# Allow unused imports in __init__.py
+"__init__.py" = ["F401", "F403"]
+# Allow assert in tests
+"tests/**/*.py" = ["S101"]
+"test_*.py" = ["S101"]
+
+# ============================================================================
+# ISORT SETTINGS
+# ============================================================================
+
+[lint.isort]
+# Number of blank lines after imports
+lines-after-imports = 2
+
+# Known first-party modules (your project name)
+# known-first-party = ["myproject"]
+
+# Force single line imports
+force-single-line = false
+
+# ============================================================================
+# FORMAT SETTINGS
+# ============================================================================
+
+[format]
+# Use double quotes for strings (matches Black)
+quote-style = "double"
+
+# Indent with spaces
+indent-style = "space"
+
+# Skip magic trailing comma
+skip-magic-trailing-comma = false
+
+# Unix-style line endings
+line-ending = "auto"

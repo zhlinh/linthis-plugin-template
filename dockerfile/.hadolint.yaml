@@ -1,0 +1,22 @@
+# Hadolint Configuration for linthis-plugin-template Plugin
+# Documentation: https://github.com/hadolint/hadolint
+
+# Ignore specific rules
+ignored:
+  - DL3008  # Pin versions in apt-get install
+  - DL3009  # Delete the apt-get lists after installing
+  - DL3015  # Avoid additional packages by specifying --no-install-recommends
+
+# Trusted registries for base images
+trustedRegistries:
+  - docker.io
+  - gcr.io
+  - ghcr.io
+
+# Label schema
+label-schema:
+  author: text
+  version: semver
+
+# Inline ignore pragmas
+# Use # hadolint ignore=DL3006 in Dockerfile

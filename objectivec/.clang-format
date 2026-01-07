@@ -1,0 +1,92 @@
+# Clang-Format Configuration for linthis-plugin-template Plugin (Objective-C)
+# Documentation: https://clang.llvm.org/docs/ClangFormatStyleOptions.html
+#
+# This file configures clang-format for Objective-C projects.
+# Run with: clang-format -i *.m *.h
+
+# ============================================================================
+# BASE STYLE
+# ============================================================================
+
+# Based on LLVM style with modifications
+Language: Cpp
+BasedOnStyle: LLVM
+
+# ============================================================================
+# INDENTATION
+# ============================================================================
+
+# Number of spaces for indentation
+IndentWidth: 2
+
+# Use spaces instead of tabs
+UseTab: Never
+
+# ============================================================================
+# LINE WIDTH
+# ============================================================================
+
+# Maximum line length before wrapping
+ColumnLimit: 100
+
+# ============================================================================
+# OBJECTIVE-C SPECIFIC
+# ============================================================================
+
+# Number of spaces to indent Objective-C blocks
+ObjCBlockIndentWidth: 4
+
+# Add space after @property keyword
+ObjCSpaceAfterProperty: false
+
+# Add space before protocol list
+ObjCSpaceBeforeProtocolList: true
+
+# Break before binary operators
+BreakBeforeBinaryOperators: None
+
+# ============================================================================
+# BRACES
+# ============================================================================
+
+# Brace wrapping style
+BreakBeforeBraces: Attach
+
+# ============================================================================
+# SPACING
+# ============================================================================
+
+# Add space before parentheses
+SpaceBeforeParens: ControlStatements
+
+# Space around pointer qualifiers
+SpaceAroundPointerQualifiers: Default
+
+# ============================================================================
+# ALIGNMENT
+# ============================================================================
+
+# Align consecutive assignments
+AlignConsecutiveAssignments: false
+
+# Align consecutive declarations
+AlignConsecutiveDeclarations: false
+
+# Pointer alignment
+PointerAlignment: Right
+
+# ============================================================================
+# INCLUDES
+# ============================================================================
+
+# Sort #include directives
+SortIncludes: true
+
+# Include categories
+IncludeCategories:
+  - Regex:           '^<.*\.h>'
+    Priority:        1
+  - Regex:           '^<.*>'
+    Priority:        2
+  - Regex:           '.*'
+    Priority:        3

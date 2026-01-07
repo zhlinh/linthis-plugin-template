@@ -1,0 +1,45 @@
+# Detekt Configuration for linthis-plugin-template Plugin
+# Documentation: https://detekt.dev/docs/intro
+
+build:
+  maxIssues: 0
+  excludeCorrectable: false
+
+config:
+  validation: true
+  warningsAsErrors: false
+
+complexity:
+  active: true
+  LongParameterList:
+    functionThreshold: 6
+    constructorThreshold: 7
+  LongMethod:
+    threshold: 60
+  LargeClass:
+    threshold: 600
+  ComplexMethod:
+    threshold: 15
+
+formatting:
+  active: true
+  android: false
+  autoCorrect: true
+  MaximumLineLength:
+    maxLineLength: 120
+
+naming:
+  active: true
+  VariableNaming:
+    variablePattern: '[a-z][A-Za-z0-9]*'
+  FunctionNaming:
+    functionPattern: '[a-z][a-zA-Z0-9]*'
+
+potential-bugs:
+  active: true
+
+style:
+  active: true
+  MaxLineLength:
+    maxLineLength: 120
+    excludeCommentStatements: true
