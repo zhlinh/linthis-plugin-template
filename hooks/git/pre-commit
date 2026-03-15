@@ -1,0 +1,31 @@
+#!/usr/bin/env bash
+# =============================================================================
+# linthis-plugin-template: git pre-commit hook
+# =============================================================================
+# This hook runs linthis on staged files before each commit.
+# Bundled by the linthis-plugin-template plugin.
+
+set -euo pipefail
+
+# Get list of staged files (added, modified, or renamed)
+STAGED_FILES=$(git diff --cached --name-only --diff-filter=AMR 2>/dev/null || true)
+
+if [ -z "$STAGED_FILES" ]; then
+    exit 0
+fi
+
+# Run linthis on staged files
+echo "→ Running linthis on staged files..."
+if command -v linthis &>/dev/null; then
+    # Build -i flags for each staged file
+    LINTHIS_ARGS=()
+    while IFS= read -r file; do
+        [ -f "$file" ] && LINTHIS_ARGS+=(-i "$file")
+    done <<< "$STAGED_FILES"
+
+    if [ ${#LINTHIS_ARGS[@]} -gt 0 ]; then
+        linthis "${LINTHIS_ARGS[@]}"
+    fi
+else
+    echo "Warning: linthis not found in PATH, skipping lint check"
+fi

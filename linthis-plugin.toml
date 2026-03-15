@@ -14,10 +14,10 @@
 name = "linthis-plugin-template"
 
 # Plugin version using semver (required)
-version = "0.1.0"
+version = "0.2.0"
 
 # Short description
-description = "linthis-plugin-template configuration plugin for linthis"
+description = "linthis-plugin-template configuration plugin for linthis (includes hook overrides and agent plugin bundles)"
 
 # Minimum linthis version required
 linthis_version = ">=0.2.0"

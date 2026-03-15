@@ -1,0 +1,30 @@
+# ============================================================================
+# Linthis Hook Configuration for linthis-plugin-template
+# ============================================================================
+#
+# This file is bundled inside the plugin package. When a user runs:
+#   linthis plugin add template <url>
+#
+# linthis will:
+#   1. Replace every `plugin = "self"` with `plugin = "template"` (the alias)
+#   2. Merge this file's [hooks.*] sections into the user's .linthis/config.toml
+#
+# After merging, the user's config will reference this plugin by alias,
+# and `linthis hook install` will pull skill/command/memory from the plugin cache.
+
+[hooks.git]
+# Override the git pre-commit hook script shipped in this plugin
+pre-commit = { source = { plugin = "self", file = "hooks/git/pre-commit" } }
+
+[hooks.agent-plugins]
+# Agent plugin bundles: each entry points to a directory containing
+#   skill/<provider>/   — skill instruction file
+#   command/<provider>/ — slash command file (optional)
+#   memory/<provider>/  — memory section to inject into CLAUDE.md (optional)
+"lt.lint"   = { source = { plugin = "self", file = "hooks/agent/plugins/lt/lint" } }
+"lt.cmsg"   = { source = { plugin = "self", file = "hooks/agent/plugins/lt/cmsg" } }
+"lt.review" = { source = { plugin = "self", file = "hooks/agent/plugins/lt/review" } }
+
+[hooks.agent-hook.stop]
+# Override the Claude stop hook settings.json
+"claude.settings" = { source = { plugin = "self", file = "hooks/agent/hook/stop/claude/settings.json" } }
