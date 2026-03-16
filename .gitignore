@@ -4,6 +4,7 @@
 *~
 .idea/
 .vscode/
+.linthis/
 
 # OS files
 .DS_Store
