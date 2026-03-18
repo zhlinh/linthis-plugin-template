@@ -22,4 +22,25 @@ pre-commit = { source = { plugin = "self", file = "hooks/git-with-agent/pre-comm
 #   commands/                    — slash command files (optional)
 #   memories/TOPLEVEL.md         — memory section to inject (optional)
 #   hooks/hooks.json             — stop hook settings (optional)
+#
+# The `source` field supports 5 variants:
+#
+#   1. plugin — reference a directory inside a plugin installed via `linthis plugin add`
+#      "lt" = { source = { plugin = "self", file = "hooks/agent/plugins/_default/lt" } }
+#
+#   2. file — local path relative to the project root
+#      "lt" = { source = { file = "hooks/agent/plugins/_default/lt" } }
+#
+#   3. git — clone directly from a git repository; use `ref` to pin a branch/tag
+#      "lt" = { source = { git = "https://github.com/user/my-hooks.git", ref = "v1.0", path = "hooks/agent/plugins/_default/lt" } }
+#
+#   4. marketplace — look up a plugin by name from a registered marketplace repo
+#      "lt" = { source = { marketplace = "corp", plugin = "linthis-rules", file = "hooks/agent/plugins/_default/lt" } }
+#      # Requires a marketplace entry in [hook.marketplaces]:
+#      # [hook.marketplaces]
+#      # corp = "https://git.example.com/org/linthis-marketplace.git"
+#
+#   5. url — single-file download only (does not support directories)
+#      # pre-commit = { source = { url = "https://example.com/hooks/pre-commit.sh" } }
+#
 "lt" = { source = { plugin = "self", file = "hooks/agent/plugins/_default/lt" } }
