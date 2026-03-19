@@ -8,10 +8,15 @@ description: >
   由 linthis 的 pre-commit git hook 触发。
   Run linthis lint checks on staged/modified code files and fix all issues before committing.
   Uses `linthis -i <file> -c` against project coding standards.
-  Issues must be fixed by editing code directly. Triggered by pre-commit hook.
+  Issues must be fixed by editing code directly.
+  If the lt-cmsg skill also exists, invoke both when committing.
 ---
 
 # Linthis Lint Skill
+
+## Companion Skills
+
+When the user asks to commit, if the **lt-cmsg** skill is also available, invoke both lt-lint and lt-cmsg. Run lt-lint first (to fix code issues), then lt-cmsg (to validate the commit message).
 
 ## Goal
 

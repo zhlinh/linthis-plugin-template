@@ -8,10 +8,15 @@ description: >
   由 linthis 的 commit-msg git hook 触发。
   Validate and auto-fix git commit messages to comply with Conventional Commits format.
   Analyzes staged diff to select correct type prefix, checks subject line format,
-  and automatically rewrites malformed messages. Triggered by commit-msg hook.
+  and automatically rewrites malformed messages.
+  If the lt-lint skill also exists, invoke both when committing.
 ---
 
 # Linthis Commit Message Skill
+
+## Companion Skills
+
+When the user asks to commit, if the **lt-lint** skill is also available, invoke both lt-lint and lt-cmsg. Run lt-lint first (to fix code issues), then lt-cmsg (to validate the commit message).
 
 ## Goal
 
