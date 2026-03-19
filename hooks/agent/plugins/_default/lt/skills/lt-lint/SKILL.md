@@ -9,14 +9,14 @@ description: >
   Run linthis lint checks on staged/modified code files and fix all issues before committing.
   Uses `linthis -i <file> -c` against project coding standards.
   Issues must be fixed by editing code directly.
-  If the lt-cmsg skill also exists, invoke both when committing.
+  If the lt-cmsg skill also exists, both should be invoked together when committing.
 ---
 
 # Linthis Lint Skill
 
 ## Companion Skills
 
-When the user asks to commit, if the **lt-cmsg** skill is also available, invoke both lt-lint and lt-cmsg. Run lt-lint first (to fix code issues), then lt-cmsg (to validate the commit message).
+When the user asks to commit, if the **lt-cmsg** skill is also available, both lt-lint and lt-cmsg should be invoked together. Run lt-lint first (to fix code issues), then lt-cmsg (to validate the commit message).
 
 ## Goal
 
