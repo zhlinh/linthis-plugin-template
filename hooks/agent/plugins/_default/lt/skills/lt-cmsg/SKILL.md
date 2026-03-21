@@ -1,14 +1,13 @@
 ---
 name: lt-cmsg
 description: >
-  验证并自动修复 git 提交信息，使其符合 Conventional Commits 规范。
-  分析暂存区 diff 选择正确的 type 前缀（feat/fix/refactor 等），
-  检查标题长度和格式，自动改写不合规的提交信息。
-  匹配近期提交历史的语言风格（中文/英文）。
+  通过 linthis cmsg 校验并自动修复 git 提交信息格式。
+  校验规则以 .linthis/config.toml [cmsg] 配置为准（默认为 Conventional Commits 规范）。
+  校验失败时分析 diff 和报错提示自动改写提交信息，匹配近期提交历史的语言风格（中文/英文）。
   由 linthis 的 commit-msg git hook 触发。
-  Validate and auto-fix git commit messages to comply with Conventional Commits format.
-  Analyzes staged diff to select correct type prefix, checks subject line format,
-  and automatically rewrites malformed messages.
+  Validate and auto-fix git commit messages via linthis cmsg.
+  Validation rules are driven by .linthis/config.toml [cmsg] (defaults to Conventional Commits).
+  On failure, rewrites the message based on linthis error output and staged diff analysis.
   If the lt-lint skill also exists, both should be invoked together when committing.
 ---
 
@@ -24,21 +23,30 @@ Ensure every commit message follows Conventional Commits format and accurately r
 
 ## When to Skip
 
-If the commit message already complies with all rules below, approve immediately with `✅ Commit message OK`.
+If `linthis cmsg .git/COMMIT_EDITMSG` passes on the first run, approve immediately with `✅ Commit message OK`.
+
+## Configuration
+
+The validation pattern is configurable via `.linthis/config.toml`:
+
+```toml
+[cmsg]
+commit_msg_pattern = "^(feat|fix|docs|...)\\(\\S+\\)?: .{1,72}"
+require_ticket = false          # require ticket reference e.g. [JIRA-123]
+ticket_pattern = "\\[\\w+-\\d+\\]"  # custom ticket regex
+```
+
+`linthis cmsg` reads this config automatically — your validation always reflects the project's actual rules, not hardcoded defaults.
 
 ## Steps
 
-1. Read the commit message from `.git/COMMIT_EDITMSG`
-2. Run `git diff --cached --stat` to understand what files actually changed — the type prefix must match the actual diff, not just what the developer wrote
-3. Run `git log -n 5 --oneline` to check the recent commit style **and language** (Chinese or English) — match that language for the description part, because consistency in the git log improves readability
-4. Evaluate the message against these rules:
-   - **Type prefix** (optional but encouraged): `feat`, `fix`, `docs`, `style`, `refactor`, `perf`, `test`, `build`, `ci`, `chore`, `revert`
-   - **Scope** (optional): `feat(module): description`
-   - **Subject line**: ≤72 characters, imperative mood, starts with lowercase after the colon
-   - **No trailing period** on subject line
-   - **Body** (if present): wrapped at 80 characters, explains *why* not *what*
-5. If the message is acceptable, output `✅ Commit message OK` and approve
-6. If improvements are needed, choose the correct `type` based on the staged diff, then **automatically rewrite** `.git/COMMIT_EDITMSG` — do NOT ask for confirmation
+1. Run `linthis cmsg .git/COMMIT_EDITMSG` — this is the **authoritative validator** and reads `.linthis/config.toml` automatically
+2. If linthis cmsg **passes** → output `✅ Commit message OK` and approve immediately
+3. If linthis cmsg **fails** → read the error output to understand what rule was violated, then:
+   - Run `git diff --cached --stat` to understand what files actually changed — the type prefix must match the actual diff
+   - Run `git log -n 5 --oneline` to check the recent commit style **and language** (Chinese or English) — match that language for consistency
+   - **Automatically rewrite** `.git/COMMIT_EDITMSG` based on the linthis error hints + diff analysis — do NOT ask for confirmation
+4. Re-run `linthis cmsg .git/COMMIT_EDITMSG` to confirm the rewrite passes
 
 ## Type Selection Guide
 
