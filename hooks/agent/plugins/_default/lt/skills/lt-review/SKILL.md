@@ -23,6 +23,10 @@ Catch issues that automated tools can't — logic errors, architectural problems
 
 **How this relates to lt-lint**: The lt-lint skill runs SAST tools (pattern-matching scanners like Bandit, Gosec, OpenGrep) and complexity analysis at pre-commit time. This review skill complements those checks with semantic-level understanding — it reads the actual logic and can catch issues like incorrect business logic, subtle race conditions, or security problems that depend on context rather than syntactic patterns.
 
+## Worktree Isolation
+
+When auto-fixing Blocking issues, **prefer working in a worktree** if your agent supports it (e.g. Claude Code). This ensures the main working tree is untouched until fixes are verified. The hook script handles worktree creation automatically.
+
 ## When to Skip
 
 If there are no outgoing commits (local is up-to-date with remote), approve immediately.
