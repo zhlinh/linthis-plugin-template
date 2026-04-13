@@ -27,6 +27,17 @@ Catch issues that automated tools can't — logic errors, architectural problems
 
 When auto-fixing Blocking issues, **prefer working in a worktree** if your agent supports it (e.g. Claude Code). This ensures the main working tree is untouched until fixes are verified. The hook script handles worktree creation automatically.
 
+## Fix Commit Mode
+
+Before starting, check the fix commit mode for pre-push:
+```bash
+linthis config get hook.pre_push.fix_commit_mode
+```
+If the command fails, default to `dirty`. The mode determines how auto-fixes for Blocking issues are committed:
+- **squash**: fix → `git add` → `git commit --amend --no-verify --no-edit` (amend into latest commit)
+- **dirty** (default): fix → leave in working tree → block push, let user review
+- **fixup**: fix → `git add` → `git commit --no-verify -m "style(linthis): auto-format"` (create separate fixup commit)
+
 ## When to Skip
 
 If there are no outgoing commits (local is up-to-date with remote), approve immediately.
@@ -78,10 +89,11 @@ After auto-fixing Blocking issues, you **must** verify the fix doesn't break the
    ## Changes Summary
    - src/foo.rs:42 — fixed SQL injection by switching to parameterized query
    - src/bar.go:80 — added error handling for unchecked return value
-
-   ## Diff
-   <full git diff output>
    ```
+6. **Commit fixes based on fix_commit_mode**:
+   - **squash**: `git add` changed files → `git commit --amend --no-verify --no-edit`
+   - **fixup**: `git add` changed files → `git commit --no-verify -m "fix(linthis): auto-fix blocking issues"`
+   - **dirty**: do NOT commit — leave changes in working tree, **block push**, and tell user to review with `git diff`
 
 ## Output Format
 
