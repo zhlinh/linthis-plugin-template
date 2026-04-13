@@ -66,7 +66,24 @@ Auto-detect the project language and use the corresponding commands:
 
 If your agent supports worktree (e.g. Claude Code), **prefer working in a worktree** for safe isolation. The hook script automatically creates a worktree and runs the agent in it. Changes are copied back only after verification passes. If interrupted (Ctrl+C), the main working tree is untouched.
 
+## Fix Commit Mode
+
+Before starting, check the fix commit mode:
+```bash
+linthis config get hook.pre_commit.fix_commit_mode
+```
+If the command fails, default to `squash`. The mode determines the workflow in the Steps section below.
+
 ## Steps
+
+### If fix_commit_mode = `fixup`
+
+1. **Identify** modified code files in this session
+2. **Check only**: run `linthis -s -c` (check only, no format, no fix)
+3. **Report** any issues found, but do NOT fix them
+4. **Approve** the commit — the post-commit hook will handle formatting and create a separate fixup commit
+
+### If fix_commit_mode = `squash` (default) or `dirty`
 
 1. **Identify** modified code files in this session (files written or edited via Write/Edit tools, or via Bash)
 
@@ -114,20 +131,22 @@ If your agent supports worktree (e.g. Claude Code), **prefer working in a worktr
    ## Changes Summary
    - src/foo.rs:42 — fixed unused variable `x` (lint: unused_variables)
    - src/bar.rs:15 — added doc comment for exported function (lint: missing_docs)
-   - src/baz.rs:80 — reduced function complexity by extracting helper (complexity: threshold 20)
-
-   ## Diff
-   <full git diff output>
    ```
 
-9. **Re-stage**: if any files were already staged before step 3, linting/formatting may have changed them on disk. Re-stage so the index matches:
-   ```
-   git add <formatted or fixed files>
-   ```
+### Then, based on mode:
 
+**If `squash`:**
+9. **Re-stage**: `git add` all changed files so the fixes are included in the current commit
 10. **Final check**: run `linthis -s -c` (check-only on staged files) to verify the staging area is clean
+11. Only **approve** the commit once **all lint checks pass** AND **build/tests pass**
 
-11. Only approve the commit once **all lint checks pass** AND **build/tests pass**
+**If `dirty`:**
+9. Do **NOT** run `git add` yet — leave all changes in the working tree
+10. Show the diff summary, then **you MUST use the AskUserQuestion tool** to ask: "Lint fixes applied. Review the changes above. Proceed to stage and commit?"
+    - Provide options: "Yes, stage and commit" / "No, leave for manual review"
+    - If the user selects yes: run `git add` on changed files → **final check** with `linthis -s -c` → **approve** the commit
+    - If the user selects no: **reject** the commit with message: "Changes left in working tree. Review with `git diff`, then `git add -u && git commit` when ready."
+    - **Important**: Do NOT skip the question by assuming the answer. Always ask.
 
 ## Key Rules
 
@@ -135,7 +154,7 @@ If your agent supports worktree (e.g. Claude Code), **prefer working in a worktr
 - **Fix manually**: Read the error, understand the root cause, then edit. Automated fixes can mask deeper problems
 - **Build must pass**: Never approve a commit if the build or tests are broken after fixing
 - **Unsupported languages**: If a file can't be checked (not a recognized language), skip it silently
-- **Always re-stage**: After any fix or format, `git add` the changed files before committing
+- **Re-stage only in squash mode**: After any fix or format, `git add` the changed files only when fix_commit_mode is `squash`
 - **Always show diff**: After all fixes, display the changes summary and diff so the user can review what was modified
 
 ## Example
